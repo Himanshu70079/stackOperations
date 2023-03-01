@@ -1,0 +1,88 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+ int data;
+ struct node *next;
+};
+struct node *front=NULL;
+struct node *rear=NULL;
+
+void enqueue( int value)
+{
+    struct node *ptr;
+    ptr=(struct node *)malloc(sizeof(struct node));
+    ptr->data=value;
+    ptr->next=NULL;
+    if((front==NULL)&&(rear==NULL))
+    {
+        front=rear=ptr;
+    }
+    else
+    {
+        rear->next=ptr;
+        rear=ptr;
+    }
+    printf("node is inserted.");
+
+}
+
+int dequeue()
+{
+    if(front==NULL)
+    {
+        printf("underflow");
+
+    }
+    else
+    {
+        struct node *temp= front;
+        int temp_data=front->data;
+        front=front->next;
+        free(temp);
+        return temp_data;
+
+    }
+}
+void display()
+{
+    struct node *temp;
+    if((front==NULL)&&(rear==NULL))
+    {
+        printf("queue is empty");
+       
+    }
+    else
+    {
+        printf("the queue is");
+        temp=front;
+        while(temp)
+        {
+            printf("%d",temp->data);
+            temp=temp->next;
+        }
+        printf("NULL");
+    }
+}
+
+int main()
+{
+    int choice,value;
+    while("choice!=4")
+    {
+        printf("\n 1.enqueue\n 2.dequee\n 3.display\n 4.exit\n");
+        printf("enter your choice");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:printf("enter value to be inserted");
+            scanf("%d",&value);enqueue(value);break;
+            case 2:dequeue();break;
+            case 3:display();break;
+            case 4:exit(0);break;
+            default:printf("enter valid expression");
+
+        }
+    }
+    return 0;
+}
